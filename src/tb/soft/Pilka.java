@@ -24,7 +24,7 @@ public class Pilka extends Sprajt {
 	 */
 	@Override
 	public void draw(Graphics2D g2d) {
-		g2d.fillOval(x-Math.round(w/2), y-Math.round(h/2), w, h);
+		g2d.fillOval(x-Math.round(w/2), y-Math.round(h/2),w,h);
 	}
 
 }

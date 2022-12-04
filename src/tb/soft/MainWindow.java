@@ -15,6 +15,8 @@ import java.util.Random;
  * klasa główna zawierająca metodę statyczną main
  */
 public class MainWindow extends JFrame {
+    private Sprajt shape;
+    private Color color;
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -101,15 +103,115 @@ public class MainWindow extends JFrame {
         dodBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 pokBtn.setEnabled(true);
-                panel.addSprajt(new Pilka(poziom.getValue(), pion.getMaximum() - pion.getValue()));
+                panel.addSprajt(shape);
+                panel.addColor(color);
                 panel.repaint();
             }
         });
+
         dodBtn.setBounds(105, 417, 90, 23);
         contentPane.add(dodBtn);
         contentPane.setVisible(false);
         contentPane.setVisible(true);
 
+        JMenuBar mb = new JMenuBar();
+        setJMenuBar(mb);
+        JMenu shapes_menu = new JMenu("Kształt");
+        shapes_menu.setMnemonic('k');
+
+        JMenuItem pilka = new JMenuItem("Piłka");
+        pilka.setMnemonic('p');
+        pilka.setAccelerator(KeyStroke.getKeyStroke("control P"));
+        pilka.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shape = new Pilka(poziom.getValue(), pion.getMaximum() - pion.getValue());
+            }
+        });
+
+        JMenuItem rect = new JMenuItem("Prostokąt");
+        rect.setMnemonic('r');
+        rect.setAccelerator(KeyStroke.getKeyStroke("control shift P"));
+        rect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shape = new rectangle(poziom.getValue(), pion.getMaximum() - pion.getValue());
+            }
+        });
+
+        JMenuItem circle = new JMenuItem("Okrąg");
+        circle.setMnemonic('o');
+        circle.setAccelerator(KeyStroke.getKeyStroke("control O"));
+        circle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shape = new circle(poziom.getValue(), pion.getMaximum() - pion.getValue());
+            }
+        });
+
+        shapes_menu.add(pilka);
+        shapes_menu.add(rect);
+        shapes_menu.add(circle);
+        mb.add(shapes_menu);
+
+        JMenu colors_menu = new JMenu("Kolor");
+        colors_menu.setMnemonic('k');
+
+        JMenuItem blue = new JMenuItem("Niebieski");
+        blue.setMnemonic('N');
+        blue.setAccelerator(KeyStroke.getKeyStroke("control N"));
+        blue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                color = Color.BLUE;
+            }
+        });
+
+        JMenuItem green = new JMenuItem("Zielony");
+        green.setMnemonic('z');
+        green.setAccelerator(KeyStroke.getKeyStroke("control Z"));
+        green.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                color = Color.GREEN;
+            }
+        });
+
+        JMenuItem pink = new JMenuItem("Różowy");
+        pink.setMnemonic('r');
+        pink.setAccelerator(KeyStroke.getKeyStroke("control R"));
+        pink.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                color = Color.PINK;
+            }
+        });
+        JMenuItem black = new JMenuItem("Czarny");
+        black.setMnemonic('c');
+        black.setAccelerator(KeyStroke.getKeyStroke("control C"));
+        black.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                color = Color.BLACK;
+            }
+        });
+
+        JMenuItem white = new JMenuItem("Biały");
+        white.setMnemonic('b');
+        white.setAccelerator(KeyStroke.getKeyStroke("control B"));
+        white.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                color = Color.WHITE;
+            }
+        });
+
+        colors_menu.add(blue);
+        colors_menu.add(green);
+        colors_menu.add(pink);
+        colors_menu.add(white);
+        colors_menu.add(black);
+        mb.add(colors_menu);
 
     }
 
@@ -117,7 +219,7 @@ public class MainWindow extends JFrame {
         super(title);
         Random generator = new Random();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(670, 500);
+        setSize(670, 510);
 
         JPanel contentPane = new JPanel();
 

@@ -9,6 +9,7 @@ public class MyPanel extends JPanel {
 	private final JLabel lblCoords;
 	private boolean rysuj = true;
 	Sprajt sp = null;
+	Color color = null;
 
 	/**
 	 * @return if painting is active
@@ -38,6 +39,14 @@ public class MyPanel extends JPanel {
 		this.sp = spr;
 	}
 
+	public boolean hasColor(){
+		return color != null;
+	}
+
+	public void addColor(Color color){
+		this.color = color;
+	}
+
 	/**
 	 * Create the panel.
 	 */
@@ -62,8 +71,9 @@ public class MyPanel extends JPanel {
 		try {
 			lblCoords.setVisible(isRysuj());
 			if(! isRysuj()) return;
-			if(sp == null) return;
-			g2d.setColor(Color.BLUE);
+			if(! hasSprajt()) return;
+			if(! hasColor()) return;
+			g2d.setColor(color);
 			sp.draw(g2d);
 			lblCoords.setText(String.format("%d, %d", sp.getX(),sp.getY()));
 		} finally {
