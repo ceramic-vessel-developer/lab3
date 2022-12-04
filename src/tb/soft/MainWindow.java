@@ -7,6 +7,9 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Random;
 
 /**
  * klasa główna zawierająca metodę statyczną main
@@ -29,12 +32,7 @@ public class MainWindow extends JFrame {
         this("untitled");
     }
 
-    public MainWindow(String title) throws HeadlessException {
-        super(title);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(648, 478);
-
+    public void showCanva(){
         JPanel contentPane = new JPanel();
 
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -108,5 +106,34 @@ public class MainWindow extends JFrame {
         });
         dodBtn.setBounds(105, 417, 90, 23);
         contentPane.add(dodBtn);
+    }
+
+    public MainWindow(String title) throws HeadlessException {
+        super(title);
+        Random generator = new Random();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(670, 500);
+
+        JPanel contentPane = new JPanel();
+
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+        JButton run = new JButton();
+        run.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                if (e.getX() < run.getWidth() - 20) {
+                    run.setLocation(generator.nextInt(600), generator.nextInt(465));
+                }
+            }
+        });
+        run.setBounds(335, 250, 70, 35);
+        run.setText("Paint");
+        contentPane.add(run);
+
+
+
     }
 }
