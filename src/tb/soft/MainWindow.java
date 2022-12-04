@@ -33,6 +33,7 @@ public class MainWindow extends JFrame {
     }
 
     public void showCanva(){
+
         JPanel contentPane = new JPanel();
 
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,6 +107,10 @@ public class MainWindow extends JFrame {
         });
         dodBtn.setBounds(105, 417, 90, 23);
         contentPane.add(dodBtn);
+        contentPane.setVisible(false);
+        contentPane.setVisible(true);
+
+
     }
 
     public MainWindow(String title) throws HeadlessException {
@@ -129,11 +134,25 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        run.setBounds(335, 250, 70, 35);
+        run.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                showCanva();
+            }
+        });
+        run.setBounds(240, 233, 80, 25);
         run.setText("Paint");
         contentPane.add(run);
 
-
+        JButton restart = new JButton("Restart");
+        restart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                run.setLocation(240,233);
+            }
+        });
+        restart.setBounds(330, 233, 80, 25);
+        contentPane.add(restart);
 
     }
 }
