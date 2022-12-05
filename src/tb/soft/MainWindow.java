@@ -17,6 +17,8 @@ import java.util.Random;
 public class MainWindow extends JFrame {
     private Sprajt shape;
     private Color color;
+    private JSlider pion;
+    private JSlider poziom;
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -46,7 +48,7 @@ public class MainWindow extends JFrame {
         panel.setBounds(10, 11, 569, 353);
         contentPane.add(panel);
 
-        JSlider poziom = new JSlider();
+        poziom = new JSlider();
         poziom.setPaintTicks(true);
         poziom.setMajorTickSpacing(10);
         poziom.setBounds(10, 375, 569, 25);
@@ -62,7 +64,7 @@ public class MainWindow extends JFrame {
         });
         contentPane.add(poziom);
 
-        JSlider pion = new JSlider();
+        pion = new JSlider();
         pion.setPaintTicks(true);
         pion.setMajorTickSpacing(10);
         pion.setOrientation(SwingConstants.VERTICAL);
@@ -116,44 +118,11 @@ public class MainWindow extends JFrame {
 
         JMenuBar mb = new JMenuBar();
         setJMenuBar(mb);
-        JMenu shapes_menu = new JMenu("Kształt");
-        shapes_menu.setMnemonic('k');
+        mb.add(setUpShapesMenu());
+        mb.add(setUpColorMenu());
+    }
 
-        JMenuItem pilka = new JMenuItem("Piłka");
-        pilka.setMnemonic('p');
-        pilka.setAccelerator(KeyStroke.getKeyStroke("control P"));
-        pilka.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                shape = new Pilka(poziom.getValue(), pion.getMaximum() - pion.getValue());
-            }
-        });
-
-        JMenuItem rect = new JMenuItem("Prostokąt");
-        rect.setMnemonic('r');
-        rect.setAccelerator(KeyStroke.getKeyStroke("control shift P"));
-        rect.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                shape = new rectangle(poziom.getValue(), pion.getMaximum() - pion.getValue());
-            }
-        });
-
-        JMenuItem circle = new JMenuItem("Okrąg");
-        circle.setMnemonic('o');
-        circle.setAccelerator(KeyStroke.getKeyStroke("control O"));
-        circle.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                shape = new circle(poziom.getValue(), pion.getMaximum() - pion.getValue());
-            }
-        });
-
-        shapes_menu.add(pilka);
-        shapes_menu.add(rect);
-        shapes_menu.add(circle);
-        mb.add(shapes_menu);
-
+    public JMenu setUpColorMenu(){
         JMenu colors_menu = new JMenu("Kolor");
         colors_menu.setMnemonic('k');
 
@@ -211,8 +180,47 @@ public class MainWindow extends JFrame {
         colors_menu.add(pink);
         colors_menu.add(white);
         colors_menu.add(black);
-        mb.add(colors_menu);
+        return colors_menu;
+    }
 
+    public JMenu setUpShapesMenu(){
+        JMenu shapes_menu = new JMenu("Kształt");
+        shapes_menu.setMnemonic('k');
+
+        JMenuItem pilka = new JMenuItem("Piłka");
+        pilka.setMnemonic('p');
+        pilka.setAccelerator(KeyStroke.getKeyStroke("control P"));
+        pilka.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shape = new Pilka(poziom.getValue(), pion.getMaximum() - pion.getValue());
+            }
+        });
+
+        JMenuItem rect = new JMenuItem("Prostokąt");
+        rect.setMnemonic('r');
+        rect.setAccelerator(KeyStroke.getKeyStroke("control shift P"));
+        rect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shape = new rectangle(poziom.getValue(), pion.getMaximum() - pion.getValue());
+            }
+        });
+
+        JMenuItem circle = new JMenuItem("Okrąg");
+        circle.setMnemonic('o');
+        circle.setAccelerator(KeyStroke.getKeyStroke("control O"));
+        circle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shape = new circle(poziom.getValue(), pion.getMaximum() - pion.getValue());
+            }
+        });
+
+        shapes_menu.add(pilka);
+        shapes_menu.add(rect);
+        shapes_menu.add(circle);
+        return shapes_menu;
     }
 
     public MainWindow(String title) throws HeadlessException {
